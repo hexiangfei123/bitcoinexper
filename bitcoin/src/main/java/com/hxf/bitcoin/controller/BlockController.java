@@ -14,13 +14,13 @@ import java.util.List;
 public class BlockController {
     @Autowired
     private BlockMapper blockMapper;
-
+//区块列表
     @GetMapping("getblocks")
     public List<Block> getblocks(){
       List<Block> blocks= blockMapper.getblocks();
       return blocks;
     }
-
+//区块详情
     @GetMapping("getByblockHash")
     public Block getByblockHash(@RequestParam String hash){
         Block block= blockMapper.getByblockHash(hash);

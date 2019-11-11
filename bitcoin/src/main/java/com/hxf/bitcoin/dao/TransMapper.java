@@ -21,4 +21,6 @@ public interface TransMapper {
     List<Trans> getTrans(@Param("blkId") String blkId);
 
     Trans getTransbyhash(@Param("txhash")String txhash);
+
+    List<Trans> Transactions();
 }

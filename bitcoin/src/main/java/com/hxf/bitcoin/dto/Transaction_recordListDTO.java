@@ -70,6 +70,10 @@ public class Transaction_recordListDTO {
         this.recordList = recordList;
     }
 
+    public Transaction_recordListDTO() {
+
+    }
+
     public Transaction_recordListDTO(String address, String format, String transactions, String totalReceived, String totalSent, String finalBalance, List<Transaction_record> recordList) {
         this.address = address;
         this.format = format;
@@ -78,9 +82,5 @@ public class Transaction_recordListDTO {
         this.totalSent = totalSent;
         this.finalBalance = finalBalance;
         this.recordList = recordList;
-    }
-
-    public Transaction_recordListDTO() {
-
     }
 }

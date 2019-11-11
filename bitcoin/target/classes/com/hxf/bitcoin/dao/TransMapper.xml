@@ -130,5 +130,12 @@
     where TxHash = #{txhash}
   </select>
 
+    <!--最近的交易-->
+    <select id="Transactions" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from Trans
+
+    </select>
 
 </mapper>

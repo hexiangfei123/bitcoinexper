@@ -9,13 +9,15 @@
     <result column="Value" jdbcType="INTEGER" property="value" />
     <result column="Address" jdbcType="CHAR" property="address" />
   </resultMap>
-  <resultMap id="BaseResultMap2" type="com.hxf.bitcoin.po.Transaction_record">
+  <resultMap id="BaseResultMap2" type="com.hxf.bitcoin.dto.Transaction_recordListDTO">
     <id column="Idx" jdbcType="INTEGER" property="idx" />
     <result column="TxId" jdbcType="INTEGER" property="txid" />
     <result column="Amount" jdbcType="BIGINT" property="amount" />
     <result column="Type" jdbcType="INTEGER" property="type" />
     <result column="Value" jdbcType="INTEGER" property="value" />
     <result column="Address" jdbcType="CHAR" property="address" />
+      <collection property="recordList" column="Address"  ofType="com.hxf.bitcoin.po.Transaction_record" select="com.hxf.bitcoin.dao.Transaction_recordMapper.getaddress"/>
+
   </resultMap>
   <sql id="Base_Column_List">
     Idx, TxId, Amount, Type, Value, Address
@@ -119,7 +121,7 @@
   </select>
 
 
-  <select id="getaddress"  resultMap="BaseResultMap2">
+  <select id="getaddress"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from Transaction_record

@@ -21,13 +21,20 @@ public class TransController {
         List<Trans> trans= transMapper.getTrans(blkId);
         return trans;
     }
+    //交易详情
     @GetMapping("getTransbyhash")
     public Trans getTransbyhash(@RequestParam String txhash){
         Trans tran= transMapper.getTransbyhash(txhash);
         System.out.println("kkk");
         return tran;
     }
-
+//    最近的交易
+    @GetMapping("/Transactions")
+    public List<Trans> Transactions(){
+        List<Trans> trans= transMapper.Transactions();
+        System.out.println("kkk");
+        return trans;
+    }
 
 
 

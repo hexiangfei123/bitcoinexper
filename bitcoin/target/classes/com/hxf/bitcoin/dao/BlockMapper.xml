@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxf.bitcoin.dao.BlockMapper">
+  <resultMap id="BaseResultMap" type="com.hxf.bitcoin.po.Block">
+    <result column="Blk_Id" jdbcType="INTEGER" property="blkId" />
+    <result column="Heighe" jdbcType="VARCHAR" property="heighe" />
+    <result column="hash" jdbcType="VARCHAR" property="hash" />
+    <result column="Confirmations" jdbcType="VARCHAR" property="confirmations" />
+    <result column="Timestamp" jdbcType="VARCHAR" property="timestamp" />
+    <result column="Miner" jdbcType="VARCHAR" property="miner" />
+    <result column="Difficulty" jdbcType="VARCHAR" property="difficulty" />
+    <result column="Version" jdbcType="VARCHAR" property="version" />
+    <result column="Bits" jdbcType="VARCHAR" property="bits" />
+    <result column="Size" jdbcType="VARCHAR" property="size" />
+    <result column="Nonce" jdbcType="VARCHAR" property="nonce" />
+
+  </resultMap>
+  <resultMap id="BaseResultMap2" type="com.hxf.bitcoin.dto.BlockListDTO">
+    <result column="Blk_Id" jdbcType="INTEGER" property="blkId" />
+    <result column="Heighe" jdbcType="VARCHAR" property="heighe" />
+    <result column="hash" jdbcType="VARCHAR" property="hash" />
+    <result column="Confirmations" jdbcType="VARCHAR" property="confirmations" />
+    <result column="Timestamp" jdbcType="VARCHAR" property="timestamp" />
+    <result column="Miner" jdbcType="VARCHAR" property="miner" />
+    <result column="Difficulty" jdbcType="VARCHAR" property="difficulty" />
+    <result column="Version" jdbcType="VARCHAR" property="version" />
+    <result column="Bits" jdbcType="VARCHAR" property="bits" />
+    <result column="Size" jdbcType="VARCHAR" property="size" />
+    <result column="Nonce" jdbcType="VARCHAR" property="nonce" />
+    <collection property="trans" column="Blk_Id" ofType="com.hxf.bitcoin.po.Trans" select="com.hxf.bitcoin.dao.TransMapper.getTrans"/>
+
+  </resultMap>
+  <sql id="Block_Column_List">
+    Blk_Id, Heighe, hash, Confirmations, `Timestamp`,Miner,Difficulty,Version,Bits,`Size`,Nonce
+  </sql>
+  <insert id="insert" parameterType="com.hxf.bitcoin.po.Block">
+    insert into block (Blk_Id, Heighe, hash, 
+      Confirmations, Timestamp, Miner, 
+      Difficulty, Version, Bits, 
+      Size, Nonce)
+    values (#{blkId,jdbcType=INTEGER}, #{heighe,jdbcType=VARCHAR}, #{hash,jdbcType=VARCHAR}, 
+      #{confirmations,jdbcType=VARCHAR}, #{timestamp,jdbcType=VARCHAR}, #{miner,jdbcType=VARCHAR}, 
+      #{difficulty,jdbcType=VARCHAR}, #{version,jdbcType=VARCHAR}, #{bits,jdbcType=VARCHAR}, 
+      #{size,jdbcType=VARCHAR}, #{nonce,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxf.bitcoin.po.Block">
+    insert into block
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="blkId != null">
+        Blk_Id,
+      </if>
+      <if test="heighe != null">
+        Heighe,
+      </if>
+      <if test="hash != null">
+        hash,
+      </if>
+      <if test="confirmations != null">
+        Confirmations,
+      </if>
+      <if test="timestamp != null">
+        Timestamp,
+      </if>
+      <if test="miner != null">
+        Miner,
+      </if>
+      <if test="difficulty != null">
+        Difficulty,
+      </if>
+      <if test="version != null">
+        Version,
+      </if>
+      <if test="bits != null">
+        Bits,
+      </if>
+      <if test="size != null">
+        Size,
+      </if>
+      <if test="nonce != null">
+        Nonce,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="blkId != null">
+        #{blkId,jdbcType=INTEGER},
+      </if>
+      <if test="heighe != null">
+        #{heighe,jdbcType=VARCHAR},
+      </if>
+      <if test="hash != null">
+        #{hash,jdbcType=VARCHAR},
+      </if>
+      <if test="confirmations != null">
+        #{confirmations,jdbcType=VARCHAR},
+      </if>
+      <if test="timestamp != null">
+        #{timestamp,jdbcType=VARCHAR},
+      </if>
+      <if test="miner != null">
+        #{miner,jdbcType=VARCHAR},
+      </if>
+      <if test="difficulty != null">
+        #{difficulty,jdbcType=VARCHAR},
+      </if>
+      <if test="version != null">
+        #{version,jdbcType=VARCHAR},
+      </if>
+      <if test="bits != null">
+        #{bits,jdbcType=VARCHAR},
+      </if>
+      <if test="size != null">
+        #{size,jdbcType=VARCHAR},
+      </if>
+      <if test="nonce != null">
+        #{nonce,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!--区块列表-->
+  <select id="getblocks"  resultMap="BaseResultMap">
+    select
+    <include refid="Block_Column_List" />
+    from Block
+  </select>
+
+
+  <!--区块详情列表-->
+  <select id="getByblockHash"  resultMap="BaseResultMap2">
+    select
+    <include refid="Block_Column_List" />
+    from Block where hash =#{hash}
+  </select>
+</mapper>

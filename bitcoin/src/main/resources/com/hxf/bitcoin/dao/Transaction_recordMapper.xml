@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hxf.bitcoin.dao.Transaction_recordMapper">
+  <resultMap id="BaseResultMap" type="com.hxf.bitcoin.po.Transaction_record">
+    <id column="Idx" jdbcType="INTEGER" property="idx" />
+    <result column="TxId" jdbcType="INTEGER" property="txid" />
+    <result column="Amount" jdbcType="BIGINT" property="amount" />
+    <result column="Type" jdbcType="INTEGER" property="type" />
+    <result column="Value" jdbcType="INTEGER" property="value" />
+    <result column="Address" jdbcType="CHAR" property="address" />
+  </resultMap>
+  <resultMap id="BaseResultMap2" type="com.hxf.bitcoin.po.Transaction_record">
+    <id column="Idx" jdbcType="INTEGER" property="idx" />
+    <result column="TxId" jdbcType="INTEGER" property="txid" />
+    <result column="Amount" jdbcType="BIGINT" property="amount" />
+    <result column="Type" jdbcType="INTEGER" property="type" />
+    <result column="Value" jdbcType="INTEGER" property="value" />
+    <result column="Address" jdbcType="CHAR" property="address" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Idx, TxId, Amount, Type, Value, Address
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from transaction_record
+    where Idx = #{idx,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from transaction_record
+    where Idx = #{idx,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.hxf.bitcoin.po.Transaction_record">
+    insert into transaction_record (Idx, TxId, Amount, 
+      Type, Value, Address)
+    values (#{idx,jdbcType=INTEGER}, #{txid,jdbcType=INTEGER}, #{amount,jdbcType=BIGINT}, 
+      #{type,jdbcType=INTEGER}, #{value,jdbcType=INTEGER}, #{address,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hxf.bitcoin.po.Transaction_record">
+    insert into transaction_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="idx != null">
+        Idx,
+      </if>
+      <if test="txid != null">
+        TxId,
+      </if>
+      <if test="amount != null">
+        Amount,
+      </if>
+      <if test="type != null">
+        Type,
+      </if>
+      <if test="value != null">
+        Value,
+      </if>
+      <if test="address != null">
+        Address,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="idx != null">
+        #{idx,jdbcType=INTEGER},
+      </if>
+      <if test="txid != null">
+        #{txid,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hxf.bitcoin.po.Transaction_record">
+    update transaction_record
+    <set>
+      <if test="txid != null">
+        TxId = #{txid,jdbcType=INTEGER},
+      </if>
+      <if test="amount != null">
+        Amount = #{amount,jdbcType=BIGINT},
+      </if>
+      <if test="type != null">
+        Type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="value != null">
+        Value = #{value,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        Address = #{address,jdbcType=CHAR},
+      </if>
+    </set>
+    where Idx = #{idx,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hxf.bitcoin.po.Transaction_record">
+    update transaction_record
+    set TxId = #{txid,jdbcType=INTEGER},
+      Amount = #{amount,jdbcType=BIGINT},
+      Type = #{type,jdbcType=INTEGER},
+      Value = #{value,jdbcType=INTEGER},
+      Address = #{address,jdbcType=CHAR}
+    where Idx = #{idx,jdbcType=INTEGER}
+  </update>
+
+
+  <select id="getrecord"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from Transaction_record
+    where TxId = #{txid}
+  </select>
+
+
+  <select id="getaddress"  resultMap="BaseResultMap2">
+    select
+    <include refid="Base_Column_List" />
+    from Transaction_record
+    where Address = #{address}
+  </select>
+</mapper>

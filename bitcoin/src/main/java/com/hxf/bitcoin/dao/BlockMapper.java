@@ -1,5 +1,7 @@
 package com.hxf.bitcoin.dao;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageInfo;
 import com.hxf.bitcoin.po.Block;
 import org.apache.ibatis.annotations.Param;
 
@@ -10,7 +12,7 @@ public interface BlockMapper {
 
     int insertSelective(Block record);
 
-    List<Block> getblocks();
+    Page<Block> getblocks();
 
     Block getByblockHash(@Param("hash") String hash);
 }
